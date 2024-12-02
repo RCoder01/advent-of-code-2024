@@ -19,13 +19,13 @@ let part1 is_test =
     get_lists is_test
     |> uncurry (List.map2 (-))
     |> List.map abs
-    |> List.fold_left (+) 0
+    |> sum
 
 let part2 is_test =
     let (left, right) = get_lists is_test in
     let get_score e =
-        List.map (((==) e) % Bool.to_int) right
-        |> List.fold_left (+) 0
+        List.map ((==) e) right
+        |> bool_sum
         |> ( * ) e in
     List.map get_score left
-    |> List.fold_left (+) 0
+    |> sum
