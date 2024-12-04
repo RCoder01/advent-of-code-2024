@@ -8,20 +8,20 @@ let get_lists is_test =
   |> List.filter (string_empty % not)
   |> List.map parse_line
 
-let diffs list = windows list |> List.map (uncurry ( - ))
+let diffs = windows2 % List.map (uncurry ( - ))
 let ok_inc i = i <= -1 && i >= -3
 let ok_dec i = i >= 1 && i <= 3
 
 let is_safe temps =
-  diffs temps |> List.map ok_inc |> all || diffs temps |> List.map ok_dec |> all
+  diffs temps |> all ok_inc || diffs temps |> all ok_dec
 
-let part1 is_test = get_lists is_test |> List.map is_safe |> bool_sum
+let part1 is_test = get_lists is_test |> List.filter is_safe |> List.length
 
 let part2 is_test =
   let report_is_safe temps =
     List.length temps + 1
     |> range
     |> List.map (remove_nth temps)
-    |> List.map is_safe |> any
+    |> any is_safe
   in
-  get_lists is_test |> List.map report_is_safe |> bool_sum
+  get_lists is_test |> List.filter report_is_safe |> List.length

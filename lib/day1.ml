@@ -17,5 +17,5 @@ let part1 is_test =
 
 let part2 is_test =
   let left, right = get_lists is_test in
-  let get_score e = List.map (( == ) e) right |> bool_sum |> ( * ) e in
+  let get_score e = List.filter (( == ) e) right |> List.length |> ( * ) e in
   List.map get_score left |> sum
