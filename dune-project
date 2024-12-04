@@ -6,5 +6,6 @@
 
 (package
  (name aoc2024)
- (depends ocaml))
+ (depends ocaml)
+ (allow_empty))
 
